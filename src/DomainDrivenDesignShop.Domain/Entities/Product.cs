@@ -22,4 +22,12 @@ public sealed class Product
 
 
     public static Product Create(string name, Money price) => new(Guid.NewGuid(), name, price);
+
+
+    public void Update(string name, Money price)
+    {
+        if (string.IsNullOrWhiteSpace(name)) throw new ArgumentException("El nombre es requerido.");
+        Name = name.Trim();
+        Price = price ?? throw new ArgumentNullException(nameof(price));
+    }
 }

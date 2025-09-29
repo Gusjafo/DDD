@@ -33,12 +33,12 @@ dotnet add $SRC_DIR/$SOLUTION_NAME.Api/$SOLUTION_NAME.Api.csproj reference $SRC_
 echo "📥 Instalando paquetes NuGet..."
 # EF Core Infra
 dotnet add $SRC_DIR/$SOLUTION_NAME.Infrastructure/$SOLUTION_NAME.Infrastructure.csproj package Microsoft.EntityFrameworkCore
-dotnet add $SRC_DIR/$SOLUTION_NAME.Infrastructure/$SOLUTION_NAME.Infrastructure.csproj package Microsoft.EntityFrameworkCore.InMemory
+dotnet add $SRC_DIR/$SOLUTION_NAME.Infrastructure/$SOLUTION_NAME.Infrastructure.csproj package Microsoft.EntityFrameworkCore.Sqlite
 dotnet add $SRC_DIR/$SOLUTION_NAME.Infrastructure/$SOLUTION_NAME.Infrastructure.csproj package Microsoft.EntityFrameworkCore.Design
 
 # EF Core Api
 dotnet add $SRC_DIR/$SOLUTION_NAME.Api/$SOLUTION_NAME.Api.csproj package Microsoft.EntityFrameworkCore
-dotnet add $SRC_DIR/$SOLUTION_NAME.Api/$SOLUTION_NAME.Api.csproj package Microsoft.EntityFrameworkCore.InMemory
+dotnet add $SRC_DIR/$SOLUTION_NAME.Api/$SOLUTION_NAME.Api.csproj package Microsoft.EntityFrameworkCore.Sqlite
 
 echo "✅ Todo listo."
 echo "👉 Ahora puedes ejecutar:"
