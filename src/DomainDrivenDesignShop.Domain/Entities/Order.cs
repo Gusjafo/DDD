@@ -51,4 +51,21 @@ public sealed class Order
         }
         return total;
     }
+
+
+    public void UpdateCurrency(string currency)
+    {
+        if (string.IsNullOrWhiteSpace(currency) || currency.Length != 3)
+        {
+            throw new ArgumentException("La divisa del pedido debe ser ISO de 3 letras.");
+        }
+
+        var normalized = currency.ToUpperInvariant();
+        if (_lines.Count > 0 && normalized != Currency)
+        {
+            throw DomainErrors.RuleViolation("No se puede cambiar la divisa de un pedido con líneas.");
+        }
+
+        Currency = normalized;
+    }
 }

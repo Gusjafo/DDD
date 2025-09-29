@@ -12,7 +12,23 @@ public sealed class EfProductRepository : IProductRepository
 
 
     public Task<Product?> GetByIdAsync(Guid id, CancellationToken ct = default)
-    => _db.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id, ct);
+        => _db.Products.FirstOrDefaultAsync(p => p.Id == id, ct);
+
+
+    public async Task<IReadOnlyList<Product>> GetAllAsync(CancellationToken ct = default)
+        => await _db.Products.AsNoTracking().ToListAsync(ct);
+
+
+    public Task AddAsync(Product product, CancellationToken ct = default)
+        => _db.Products.AddAsync(product, ct).AsTask();
+
+
+    public void Update(Product product)
+        => _db.Products.Update(product);
+
+
+    public void Remove(Product product)
+        => _db.Products.Remove(product);
 }
 
 
@@ -23,11 +39,25 @@ public sealed class EfOrderRepository : IOrderRepository
 
 
     public Task<Order?> GetByIdAsync(Guid id, CancellationToken ct = default)
-    => _db.Orders.Include(o => o.Lines).FirstOrDefaultAsync(o => o.Id == id, ct);
+        => _db.Orders.Include(o => o.Lines).FirstOrDefaultAsync(o => o.Id == id, ct);
 
 
     public async Task AddAsync(Order order, CancellationToken ct = default)
-    => await _db.Orders.AddAsync(order, ct);
+        => await _db.Orders.AddAsync(order, ct);
+
+
+    public async Task<IReadOnlyList<Order>> GetAllAsync(CancellationToken ct = default)
+        => await _db.Orders.Include(o => o.Lines)
+                           .AsNoTracking()
+                           .ToListAsync(ct);
+
+
+    public void Update(Order order)
+        => _db.Orders.Update(order);
+
+
+    public void Remove(Order order)
+        => _db.Orders.Remove(order);
 }
 
 
